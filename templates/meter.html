@@ -1,0 +1,148 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container my-5 min-vh-100" style="max-width: 960px">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="meter"></canvas>
+
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <button onclick="meter_full()" class="btn btn-light">
+              All data
+            </button>
+            <button onclick="meter_1()" class="btn btn-light">1</button>
+            <button onclick="meter_2()" class="btn btn-light">2</button>
+            <button onclick="meter_3()" class="btn btn-light">3</button>
+            <button onclick="meter_4()" class="btn btn-light">4</button>
+            <button onclick="resetZoomMeter()" class="btn btn-light">
+              Reset Zoom
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function resetZoomMeter() {
+    window.meter.resetZoom();
+    }
+    function meter_full() {
+    var start = "08:00:00";
+    var end = "09:00:00";
+    meter.options.scales.xAxes.max = end;
+    meter.options.scales.xAxes.min = start;
+    window.meter.update();
+        }
+    function meter_1(){
+    var start = "08:00:00";
+    var end = "08:15:00";
+    meter.options.scales.xAxes.max = end;
+    meter.options.scales.xAxes.min = start;
+    window.meter.update();
+    }
+
+    function meter_2(){
+    var start = "08:15:00";
+    var end = "08:30:00";
+    meter.options.scales.xAxes.max = end;
+    meter.options.scales.xAxes.min = start;
+    window.meter.update();
+    }
+    function meter_3(){
+    var start = "08:30:00";
+    var end = "08:45:00";
+    meter.options.scales.xAxes.max = end;
+    meter.options.scales.xAxes.min = start;
+    window.meter.update();
+    }
+    function meter_4(){
+    var start = "08:45:00";
+    var end = "09:00:00";
+    meter.options.scales.xAxes.max = end;
+    meter.options.scales.xAxes.min = start;
+    window.meter.update();
+    }
+    var pointBackgroundColors =[]
+    const lowerlimit = {{lowerlimit}}
+    const upperlimit = {{upperlimit}}
+    const timestamps=({{timestamps|safe}})
+    const readings={{readings|safe}}
+    const max = Math.max(readings)
+    var meterData ={
+      labels: timestamps,
+      datasets: [{
+        label: 'meter',
+        data: readings,
+        backgroundColor: pointBackgroundColors,
+        borderColor: "#e9d8a6",
+        fill: false,
+        tension: 0.5,
+      }]
+    }
+
+    window.onload = function(){
+      for(j=0;j<readings.length;j++){
+              if(readings[j]<lowerlimit || readings[j]>upperlimit){
+              pointBackgroundColors.push("#d00000");
+              }
+              else{
+              pointBackgroundColors.push("#a7c957");
+              }
+              }
+      var ctx = document.getElementById('meter').getContext("2d");
+      window.meter = new Chart(ctx,{
+        type: 'line',
+        data: meterData,
+        options:{
+          plugins: {
+            zoom: {
+              pan: {
+              enabled: true,
+              },
+              zoom: {
+
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true,
+                },
+                mode: 'x',
+              }
+            }
+          },
+          scales: {
+          xAxes:{
+            min:"08:00:00",
+            max:"09:00:00",
+            type: 'time',
+            time: {
+            parser: "HH:mm:ss",
+            tooltipFormat: "HH:mm:ss",
+            },
+            grid:{
+              display: false,
+            }
+          },
+          yAxes: {
+            suggestedMin: 0,
+            suggestedMax: max*1.4,
+            grid: {
+                display: false
+            }
+        },
+        },
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        }
+      })
+    }
+  </script>
+</div>
+{% endblock content%}

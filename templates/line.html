@@ -1,0 +1,185 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container min-vh-100">
+  <div class="row my-5">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="switch2"></canvas>
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <button onclick="switch2_full()" class="btn btn-light">
+              All data
+            </button>
+            <button onclick="switch2_1()" class="btn btn-light">1</button>
+            <button onclick="switch2_2()" class="btn btn-light">2</button>
+            <button onclick="switch2_3()" class="btn btn-light">3</button>
+            <button onclick="switch2_4()" class="btn btn-light">4</button>
+            <button onclick="resetZoom2()" class="btn btn-light">
+              Reset Zoom
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+        const timestamps=({{timestamps|safe}})
+        const switch_id ={{switch_id}}
+        const status={{status|safe}}
+        var data_0 = []
+        var data_1 = []
+        var data_2 = []
+
+    function resetZoom2() {
+    window.switch2.resetZoom();
+    }
+            function switch2_full() {
+            var end = "08:00:00";
+            var start = "09:00:00";
+            switch2.options.scales.xAxes.max = end;
+            switch2.options.scales.xAxes.min = start;
+            window.switch2.update();
+                }
+            function switch2_1(){
+            var end = "08:00:00";
+            var start = "08:15:00";
+            switch2.options.scales.xAxes.max = end;
+            switch2.options.scales.xAxes.min = start;
+            window.switch2.update();
+            }
+            function switch2_2(){
+            var end = "08:15:00";
+            var start = "08:30:00";
+            switch2.options.scales.xAxes.max = end;
+            switch2.options.scales.xAxes.min = start;
+            window.switch2.update();
+            }
+            function switch2_3(){
+            var end = "08:30:00";
+            var start = "08:45:00";
+            switch2.options.scales.xAxes.max = end;
+            switch2.options.scales.xAxes.min = start;
+            window.switch2.update();
+            }
+            function switch2_4(){
+            var end = "08:45:00";
+            var start = "09:00:00";
+            switch2.options.scales.xAxes.max = end;
+            switch2.options.scales.xAxes.min = start;
+            window.switch2.update();
+            }
+        for(j=0;j<status.length;j++){
+          if (status[j]==1){
+              data_1[j]=1
+              data_2[j]= null
+              data_0[j]= null
+          }
+          else if(status[j]==0){
+              data_0[j]=1
+              data_2[j]= null
+              data_1[j]= null
+          }
+          else {
+              data_2[j]=1
+              data_1[j]= null
+              data_0[j]= null
+          }
+
+        }
+                var switch2Data = {
+                labels: timestamps,
+                datasets: [{
+                    label: switch_id,
+                    data: data_0,
+                    backgroundColor: "#e9d8a6",
+                    borderColor: "#f4a261",
+                    fill:true,
+                    pointHitRadius: 5,
+                    pointRadius: 0,
+                    pointBackgroundColor: "#f4a261",
+                },
+                {
+                    label: switch_id,
+                    data: data_1,
+                    backgroundColor: "#74c69d",
+                    borderColor: "#a7c957",
+                    fill:true,
+                    pointHitRadius: 5,
+                    pointRadius: 0,
+                    pointBackgroundColor:  "#a7c957",
+                },
+                {
+                    label: switch_id,
+                    data: data_2,
+                    backgroundColor: "#ff4d6d",
+                    borderColor: "#d00000",
+                    fill:true,
+                    pointHitRadius: 5,
+                    pointRadius: 0,
+                    pointBackgroundColor: "#d00000",
+
+                }]};
+        window.onload = function(){
+
+            var ctx = document.getElementById('switch2').getContext("2d");
+            window.switch2 = new Chart(ctx, {
+                    type: 'line',
+                    data: switch2Data,
+                    options: {
+
+                      datasetFill: true,
+                      plugins: {
+
+                          zoom: {
+                            pan: {
+                            enabled: true,
+                            },
+                            zoom: {
+                              wheel: {
+                                enabled: true,
+                              },
+                              pinch: {
+                                enabled: true,
+                              },
+                              mode: 'x',
+                            }
+                          }
+                        },
+                        spanGaps: false,
+                        showLines: false,
+                        scales:{
+                            xAxes:
+                            { min:"08:00:00",
+                             max:"09:00:00",
+                              type: 'time',
+                              time: {
+                              parser: "HH:mm:ss",
+                              tooltipFormat: "HH:mm:ss",
+                              },
+                                grid: {
+                                    display: false
+                                }
+                            },
+                            yAxes: {
+                                suggestedMin: -0.5,
+                                suggestedMax: 1.5,
+                                grid: {
+                                    display: false
+                                }
+                            }
+
+                        },
+                        responsive: true,
+                        legend: {
+                            position: 'top',
+                        },
+                    }
+                });
+
+        }
+  </script>
+</div>
+{% endblock content%}

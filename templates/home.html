@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+ {% block content %}
+<div class="container min-vh-100">
+  <div class="row my-5">
+    <div class="col-lg-6">
+      <div
+        class="card justify-content-center align-items-center border border-4"
+      >
+        <!-- <img src="{{url_for('static', filename='img/milling.jpg')}}" class="card-img-top"></img> -->
+        <div class="card-body">
+          <a class="card-font" href="{{url_for('machine',id=1)}}" class="btn-block stretched-link"
+            >MILLING</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card justify-content-center align-items-center border border-4">
+        <!-- <img class="card-img-top" src="{{url_for('static', filename='img/shaping.jpg')}}"></img> -->
+        <div class="card-body">
+          <a class="card-font" href="{{url_for('machine',id=2)}}" class="btn-block stretched-link"
+            >SHAPING</a
+          >
+          <i class="fas fa-arrow-circle-down"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col-lg-6">
+      <div class="card justify-content-center align-items-center border border-4">
+        <!-- <img class="card-img-top" src="{{url_for('static', filename='img/planing.jpg')}}"></img> -->
+        <div class="card-body">
+          <a class="card-font" href="{{url_for('machine',id=3)}}" class="btn-block stretched-link"
+            >PLANING</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card justify-content-center align-items-center border border-4">
+        <!-- <img class="card-img-top" src="{{url_for('static', filename='img/honing.jpg')}}"></img> -->
+        <div class="card-body">
+          <a class="card-font" href="{{url_for('machine',id=4)}}" class="btn-block stretched-link"
+            >HONING</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <a class="card-font" href="{{url_for('jobs',id=1)}}" class="btn-block stretched-link"
+            >JOBS</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content%}

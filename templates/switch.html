@@ -1,0 +1,77 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container my-5 min-vh-100" style="max-width: 960px">
+  <div class="row">
+    <h4 style="text-align: center">LAYOUT</h4>
+    <table class="table my-5">
+      <thead>
+        <tr>
+          <th scope="col">from</th>
+          <th scope="col">to</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in layout %}
+        <tr>
+          <td>{{layout[loop.index0][2]}}</td>
+          <td>{{layout[loop.index0][3]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 style="text-align: center">SWITCHES</h4>
+      <table class="table my-5">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in switches %}
+          <tr>
+            <td>
+              <a href="{{url_for('line',id=switches[loop.index0][0])}}"
+                >{{switches[loop.index0][0]}}</a
+              >
+            </td>
+            <td>{{switches[loop.index0][2]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+      <h4 style="text-align: center">METRES</h4>
+      <table class="table my-5">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">description</th>
+            <th scope="col">units</th>
+            <th scope="col">upper limit</th>
+            <th scope="col">lower limit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in metres %}
+          <tr>
+            <td>
+              <a href="{{url_for('meter',id=metres[loop.index0][0])}}"
+                >{{metres[loop.index0][0]}}</a
+              >
+            </td>
+            <td>{{metres[loop.index0][2]}}</td>
+            <td>{{metres[loop.index0][3]}}</td>
+            <td>{{metres[loop.index0][4]}}</td>
+            <td>{{metres[loop.index0][5]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content%}

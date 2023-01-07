@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% block head %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"
+      integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"
+      integrity="sha512-FuXN8O36qmtA+vRJyRoAxPcThh/1KJJp7WSRnjCpqA+13HYGrSWiyzrCHalCWi42L5qH1jt88lX5wy5JyFxhfQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
+      integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.0.1/chartjs-plugin-zoom.min.js"
+      integrity="sha512-b+q5md1qwYUeYsuOBx+E8MzhsDSZeoE80dPP1VCw9k/KA9LORQmaH3RuXjlpu3u1rfUwh7s6SHthZM3sUGzCkA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  {% endblock head%} {% block body %}
+  <body>
+    {% block navbar %}
+    <section class="ftco-section">
+      
+      <div class="toggle-btn">
+        <i onclick="myFunction(this)" class="fas fa-toggle-on"></i>
+        <script>
+          function myFunction(x) {
+            x.classList.toggle("fas fa-toggle-off");
+          }
+          </script> 
+      </div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mb-5">
+            <h2 class="heading-section">Machine KPIs</h2>
+          </div>
+      </div>
+      </div>
+  
+      <div class="container-fluid px-md-5">
+        <div class="row justify-content-between">
+          <div class="col-md-8 order-md-last">
+            <div class="row">
+              <div class="col-md-6 text-center">
+              </div>
+              <div class="col-md-6 d-md-flex justify-content-end mb-md-0 mb-3">
+                <form action="#" class="searchform order-lg-last">
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control pl-3" placeholder="Search">
+                    <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex">
+            <div class="social-media">
+              <p class="mb-0 d-flex">
+                <a href="https://www.facebook.com/NitinMohan.310" class="fab fa-facebook"></a>
+                <a href="https://twitter.com/aztec1311" class="fab fa-twitter"></a>
+                <a href="https://www.linkedin.com/in/sourik-dutta-71a34a17b/" class="fab fa-linkedin"></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+        
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+          </button>
+          <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav m-auto">
+              <li class="nav-item active"><a href="{{url_for('home')}}" class="nav-link">Home</a></li>
+              <li class="nav-item active"><a href="{{url_for('home')}}" class="nav-link">Machines</a></li>
+              <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
+              <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    {% endblock navbar %} {% block content %} {%endblock
+    content %} {% block footer %}
+    <div class="footer">
+      <p>© since 2021</p>
+    </div>
+    {% endblock footer %}
+    
+    <!-- Script for toggling dark mode -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let body=document.body;
+      let toggleBtn=document.querySelector('.toggle-btn');
+      let currentTheme=localStorage.getItem('currentTheme');
+
+      if(currentTheme)
+      {
+        body.classList.add('dark-theme');
+      }
+      toggleBtn.addEventListener('click', function(){
+        body.classList.toggle('dark-theme');
+        if(body.classList.contains('dark-theme')){
+          localStorage.setItem('currentTheme', 'themeActive');
+      }else{
+        localStorage.removeItem('currentTheme');
+      }
+      })
+
+    </script>
+
+
+  </body>
+  {% endblock body %}
+</html>
